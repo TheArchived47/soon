@@ -5,22 +5,10 @@
   <title>G,U ESS    WH O</title>
 
   <style>
-    /* GLOBAL CRT FILTER — NON-SHIFTING */
-    body {
-      position: relative;
-      filter: contrast(1.15) brightness(1.05);
-      font-family: Arial, sans-serif;
-      background-color: #000000;
-      color: #FF0000;
-      text-align: center;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-    }
-
+    /* GLOBAL CRT FILTER */
     body::before {
       content: "";
-      position: fixed; /* fixed is fine now */
+      position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
@@ -45,17 +33,27 @@
       100% { opacity: 0.93; }
     }
 
-    /* LOAD DATA SCREEN — CENTERED */
+    body {
+      filter: contrast(1.15) brightness(1.05);
+      font-family: Arial, sans-serif;
+      background-color: #000000;
+      color: #FF0000;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* LOAD DATA SCREEN */
     #loadScreen {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: #000000;
-      z-index: 100;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
 
     #loadButton {
@@ -80,7 +78,6 @@
     #passwordScreen {
       display: none;
       padding-top: 80px;
-      z-index: 100;
     }
 
     #typewriter {
@@ -98,7 +95,7 @@
       to { border-right-color: transparent; }
     }
 
-    /* spoiler.png — PERFECT CENTER */
+    /* First reveal image */
     #secretImage {
       display: none;
       position: fixed;
@@ -121,7 +118,7 @@
       100% { opacity: 1; }
     }
 
-    /* WRONG PASSWORD SHAKE */
+    /* Wrong password shake */
     @keyframes shake {
       0% { transform: translateX(0); }
       20% { transform: translateX(-10px); }
@@ -157,7 +154,7 @@
       color: #000000;
     }
 
-    /* FLASH SCREEN — PERFECT CENTER */
+    /* FLASH SCREEN */
     #flashScreen {
       display: none;
       position: fixed;
@@ -165,19 +162,19 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 15000;
+      z-index: 10000;
     }
 
-    /* FINAL ROTATING IMAGE — PERFECT CENTER */
+    /* FINAL ROTATING IMAGE — NOW SMALLER */
     #finalImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 20vw;
+      width: 20vw; /* MUCH SMALLER NOW */
       opacity: 0;
-      z-index: 16000;
+      z-index: 10001;
       animation: fadeInFinal 2s forwards, rotateForever 6s linear infinite;
     }
 
@@ -207,16 +204,16 @@
     <button onclick="checkPassword()">Submit</button>
   </div>
 
-  <!-- spoiler.png -->
-  <img id="secretImage" src="spoiler.png">
+  <!-- First reveal image -->
+  <img id="secretImage" src="spoiler.png" alt="Secret Image">
 
-  <!-- FLASH SCREEN -->
+  <!-- Flash screen -->
   <div id="flashScreen"></div>
 
-  <!-- FINAL ROTATING IMAGE -->
+  <!-- Final rotating image -->
   <img id="finalImage" src="spookyscaryceedeesnutz.jpg">
 
-  <!-- AUDIO -->
+  <!-- Audio -->
   <audio id="secretAudio" src="excusemejacob.ogg"></audio>
   <audio id="loopAudio" src="compooper.mp3" loop></audio>
   <audio id="finalAudio" src="timeisticking.mp3" loop></audio>
