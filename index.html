@@ -136,13 +136,9 @@
     }
     .shake { animation: shake 0.4s; }
 
-    /* SPOILER IMAGE — FIXED CENTER */
+    /* SPOILER IMAGE — NOW USING SAME CENTERING SYSTEM AS BUTTONS */
     #secretImage {
       display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); /* PERFECT CENTER */
       width: 60vw;
       max-height: 70vh;
       background: white;
@@ -150,8 +146,8 @@
       border: 3px solid #87CEFA;
       box-shadow: 0 0 40px rgba(255,255,255,0.4);
       opacity: 0;
-      z-index: 30000;
       animation: fadeInImage 1.2s forwards;
+      z-index: 30000;
     }
 
     @keyframes fadeInImage {
@@ -170,13 +166,9 @@
       z-index: 30000;
     }
 
-    /* FINAL ROTATING IMAGE — FIXED CENTER */
+    /* FINAL ROTATING IMAGE — ALSO USING SAME CENTERING SYSTEM */
     #finalImage {
       display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); /* PERFECT CENTER */
       width: 15vw;
       opacity: 0;
       z-index: 30001;
@@ -189,8 +181,8 @@
     }
 
     @keyframes rotateForever {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -209,14 +201,18 @@
     <button onclick="checkPassword()">Submit</button>
   </div>
 
-  <!-- SPOILER IMAGE -->
-  <img id="secretImage" src="spoiler.png" alt="Secret Image">
+  <!-- SPOILER IMAGE (NOW CENTERED) -->
+  <div id="secretImageContainer" class="centerScreen" style="display:none;">
+    <img id="secretImage" src="spoiler.png" alt="Secret Image">
+  </div>
 
   <!-- FLASH SCREEN -->
   <div id="flashScreen"></div>
 
-  <!-- FINAL ROTATING IMAGE -->
-  <img id="finalImage" src="spookyscaryceedeesnutz.jpg">
+  <!-- FINAL ROTATING IMAGE (NOW CENTERED) -->
+  <div id="finalImageContainer" class="centerScreen" style="display:none;">
+    <img id="finalImage" src="spookyscaryceedeesnutz.jpg">
+  </div>
 
   <!-- AUDIO -->
   <audio id="secretAudio" src="excusemejacob.ogg"></audio>
@@ -264,8 +260,7 @@
         typewriter.style.animation = "none";
         typewriter.style.borderRight = "2px solid #FFFFFF";
 
-        const img = document.getElementById("secretImage");
-        img.style.display = "block";
+        document.getElementById("secretImageContainer").style.display = "flex";
 
         const audio = document.getElementById("secretAudio");
         audio.play();
@@ -290,8 +285,7 @@
         flash.style.backgroundColor = "#000000";
 
         setTimeout(() => {
-          const finalImg = document.getElementById("finalImage");
-          finalImg.style.display = "block";
+          document.getElementById("finalImageContainer").style.display = "flex";
 
           const finalAudio = document.getElementById("finalAudio");
           finalAudio.play();
