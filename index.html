@@ -165,14 +165,14 @@
       z-index: 10000;
     }
 
-    /* FINAL ROTATING IMAGE — NOW SMALLER */
+    /* FINAL ROTATING IMAGE — SMALLER */
     #finalImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 20vw; /* MUCH SMALLER NOW */
+      width: 15vw; /* SMALLER SIZE */
       opacity: 0;
       z-index: 10001;
       animation: fadeInFinal 2s forwards, rotateForever 6s linear infinite;
@@ -256,8 +256,8 @@
 
         const typewriter = document.getElementById("typewriter");
         typewriter.style.color = "#FFFFFF";
-        typewriter.style.borderRightColor = "#FFFFFF";
         typewriter.style.animation = "none";
+        typewriter.style.borderRight = "2px solid #FFFFFF"; /* FIXED CURSOR COLOR */
 
         const img = document.getElementById("secretImage");
         img.style.display = "block";
