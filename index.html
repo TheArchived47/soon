@@ -5,7 +5,7 @@
   <title>G,U ESS    WH O</title>
 
   <style>
-    /* GLOBAL CRT FILTER */
+    /* GLOBAL CRT FILTER — FIXED, NON‑SHIFTING */
     body::before {
       content: "";
       position: fixed;
@@ -40,6 +40,8 @@
       color: #FF0000;
       text-align: center;
       overflow: hidden;
+      margin: 0;
+      padding: 0;
     }
 
     /* LOAD DATA SCREEN */
@@ -54,6 +56,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      z-index: 100;
     }
 
     #loadButton {
@@ -78,6 +81,7 @@
     #passwordScreen {
       display: none;
       padding-top: 80px;
+      z-index: 100;
     }
 
     #typewriter {
@@ -95,7 +99,7 @@
       to { border-right-color: transparent; }
     }
 
-    /* First reveal image */
+    /* FIRST IMAGE — CENTERED */
     #secretImage {
       display: none;
       position: fixed;
@@ -118,7 +122,7 @@
       100% { opacity: 1; }
     }
 
-    /* Wrong password shake */
+    /* WRONG PASSWORD SHAKE */
     @keyframes shake {
       0% { transform: translateX(0); }
       20% { transform: translateX(-10px); }
@@ -154,7 +158,7 @@
       color: #000000;
     }
 
-    /* FLASH SCREEN */
+    /* FLASH SCREEN — CENTERED */
     #flashScreen {
       display: none;
       position: fixed;
@@ -162,19 +166,19 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 10000;
+      z-index: 15000;
     }
 
-    /* FINAL ROTATING IMAGE — NOW SMALLER */
+    /* FINAL ROTATING IMAGE — CENTERED + SMALLER */
     #finalImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 20vw; /* MUCH SMALLER NOW */
+      width: 20vw;
       opacity: 0;
-      z-index: 10001;
+      z-index: 16000;
       animation: fadeInFinal 2s forwards, rotateForever 6s linear infinite;
     }
 
@@ -204,16 +208,16 @@
     <button onclick="checkPassword()">Submit</button>
   </div>
 
-  <!-- First reveal image -->
-  <img id="secretImage" src="spoiler.png" alt="Secret Image">
+  <!-- FIRST IMAGE -->
+  <img id="secretImage" src="spoiler.png">
 
-  <!-- Flash screen -->
+  <!-- FLASH SCREEN -->
   <div id="flashScreen"></div>
 
-  <!-- Final rotating image -->
+  <!-- FINAL ROTATING IMAGE -->
   <img id="finalImage" src="spookyscaryceedeesnutz.jpg">
 
-  <!-- Audio -->
+  <!-- AUDIO -->
   <audio id="secretAudio" src="excusemejacob.ogg"></audio>
   <audio id="loopAudio" src="compooper.mp3" loop></audio>
   <audio id="finalAudio" src="timeisticking.mp3" loop></audio>
