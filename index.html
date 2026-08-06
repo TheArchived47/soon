@@ -24,20 +24,24 @@
       overflow: hidden;
     }
 
-    /* Image with white background panel */
+    /* Centered image with white background panel */
     #secretImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
+      transform: translate(-50%, -50%);  /* Perfect centering */
+
       width: 70vw;          /* Slightly smaller */
       height: auto;
-      max-height: 80vh;     /* Prevents it from being too tall */
-      transform: translate(-50%, -50%);
+      max-height: 80vh;
+
       object-fit: contain;
+
       background: white;    /* White background behind PNG */
       padding: 20px;        /* Spacing around image */
       box-shadow: 0 0 40px rgba(255,255,255,0.4);
+
       opacity: 0;
       z-index: 9999;
       animation: glitchFade 1.5s forwards;
