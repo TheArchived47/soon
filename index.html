@@ -5,9 +5,9 @@
   <title>G,U ESS    WH O</title>
 
   <style>
-    /* GLOBAL CRT FILTER — FIXED, NON‑SHIFTING */
+    /* GLOBAL CRT FILTER — NON-SHIFTING */
     body {
-      position: relative; /* prevents CRT overlay from shifting layout */
+      position: relative;
       filter: contrast(1.15) brightness(1.05);
       font-family: Arial, sans-serif;
       background-color: #000000;
@@ -20,11 +20,11 @@
 
     body::before {
       content: "";
-      position: absolute; /* anchor to body, not viewport */
+      position: fixed; /* fixed is fine now */
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       z-index: 20000;
 
@@ -37,7 +37,6 @@
       );
 
       animation: crtFlicker 0.08s infinite;
-      transform: none !important; /* prevents visual offset */
     }
 
     @keyframes crtFlicker {
@@ -46,16 +45,17 @@
       100% { opacity: 0.93; }
     }
 
-    /* LOAD DATA SCREEN */
+    /* LOAD DATA SCREEN — CENTERED */
     #loadScreen {
       position: fixed;
-      inset: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background: #000000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
       z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     #loadButton {
@@ -98,12 +98,13 @@
       to { border-right-color: transparent; }
     }
 
-    /* FIRST IMAGE — PERFECTLY CENTERED */
+    /* spoiler.png — PERFECT CENTER */
     #secretImage {
       display: none;
       position: fixed;
-      inset: 0;
-      margin: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 60vw;
       max-height: 70vh;
       background: white;
@@ -156,22 +157,24 @@
       color: #000000;
     }
 
-    /* FLASH SCREEN — CENTERED */
+    /* FLASH SCREEN — PERFECT CENTER */
     #flashScreen {
       display: none;
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
       z-index: 15000;
     }
 
-    /* FINAL ROTATING IMAGE — CENTERED + SMALLER */
+    /* FINAL ROTATING IMAGE — PERFECT CENTER */
     #finalImage {
       display: none;
       position: fixed;
-      inset: 0;
-      margin: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 20vw;
       opacity: 0;
       z-index: 16000;
@@ -184,8 +187,8 @@
     }
 
     @keyframes rotateForever {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
     }
   </style>
 </head>
@@ -204,7 +207,7 @@
     <button onclick="checkPassword()">Submit</button>
   </div>
 
-  <!-- FIRST IMAGE -->
+  <!-- spoiler.png -->
   <img id="secretImage" src="spoiler.png">
 
   <!-- FLASH SCREEN -->
