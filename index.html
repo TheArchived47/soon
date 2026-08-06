@@ -40,9 +40,9 @@
       gap: 12px;
     }
 
-    /* Floppy disk icon */
+    /* CD icon */
     #loadButton::before {
-      content: "💾";
+      content: "💿";
       font-size: 26px;
     }
 
@@ -55,7 +55,7 @@
     /* Typewriter effect */
     #typewriter {
       font-size: 24px;
-      border-right: 2px solid #FF0000;
+      border-right: 2px solid #FF0000; /* Red cursor */
       width: fit-content;
       margin: 0 auto 20px auto;
       white-space: nowrap;
@@ -199,7 +199,11 @@
         document.body.style.backgroundColor = "#FFFFFF";
 
         /* Change typewriter text to white */
-        document.getElementById("typewriter").style.color = "#FFFFFF";
+        const typewriter = document.getElementById("typewriter");
+        typewriter.style.color = "#FFFFFF";
+
+        /* Change cursor to white too */
+        typewriter.style.borderRightColor = "#FFFFFF";
 
         /* Show centered image */
         const img = document.getElementById("secretImage");
