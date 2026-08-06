@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Password Trigger</title>
 
   <style>
@@ -88,7 +89,7 @@
   <audio id="secretAudio" src="excusemejacob.ogg"></audio>
 
   <script>
-    /* TYPEWRITER EFFECT */
+    // TYPEWRITER EFFECT
     const text = "Enter Password";
     let i = 0;
     function typeWriter() {
@@ -100,7 +101,7 @@
     }
     typeWriter();
 
-    /* PASSWORD CHECK */
+    // PASSWORD CHECK
     function checkPassword() {
       const inputBox = document.getElementById("passwordInput");
       const input = inputBox.value.toLowerCase();
