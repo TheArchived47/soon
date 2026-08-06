@@ -13,7 +13,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: none;
+      pointer-events: none; /* IMPORTANT: allows clicking through */
       z-index: 20000;
 
       background: repeating-linear-gradient(
@@ -44,7 +44,7 @@
       padding: 0;
     }
 
-    /* CENTERING CONTAINERS */
+    /* UNIVERSAL CENTERING CONTAINER */
     .centerScreen {
       position: fixed;
       top: 0;
@@ -60,7 +60,7 @@
     /* LOAD DATA SCREEN */
     #loadScreen {
       background: #000000;
-      z-index: 1000;
+      z-index: 30000; /* ABOVE CRT FILTER */
     }
 
     #loadButton {
@@ -84,7 +84,7 @@
     /* PASSWORD SCREEN */
     #passwordScreen {
       display: none;
-      z-index: 1000;
+      z-index: 30000;
     }
 
     #typewriter {
@@ -137,4 +137,171 @@
     }
     .shake { animation: shake 0.4s; }
 
-    /* SPOILER IMAGE — PERFECTLY CENTER
+    /* SPOILER IMAGE — CENTERED */
+    #secretImage {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vw;
+      max-height: 70vh;
+      background: white;
+      padding: 20px;
+      border: 3px solid #87CEFA;
+      box-shadow: 0 0 40px rgba(255,255,255,0.4);
+      opacity: 0;
+      z-index: 30000;
+      animation: fadeInImage 1.2s forwards;
+    }
+
+    @keyframes fadeInImage {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* FLASH SCREEN */
+    #flashScreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 30000;
+    }
+
+    /* FINAL ROTATING IMAGE — CENTERED */
+    #finalImage {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 15vw;
+      opacity: 0;
+      z-index: 30001;
+      animation: fadeInFinal 2s forwards, rotateForever 6s linear infinite;
+    }
+
+    @keyframes fadeInFinal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rotateForever {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOAD DATA SCREEN -->
+  <div id="loadScreen" class="centerScreen">
+    <button id="loadButton" onclick="startExperience()">LOAD DATA</button>
+  </div>
+
+  <!-- PASSWORD SCREEN -->
+  <div id="passwordScreen" class="centerScreen">
+    <div id="typewriter"></div>
+
+    <input type="password" id="passwordInput" placeholder="Password">
+    <button onclick="checkPassword()">Submit</button>
+  </div>
+
+  <!-- SPOILER IMAGE -->
+  <img id="secretImage" src="spoiler.png" alt="Secret Image">
+
+  <!-- FLASH SCREEN -->
+  <div id="flashScreen"></div>
+
+  <!-- FINAL ROTATING IMAGE -->
+  <img id="finalImage" src="spookyscaryceedeesnutz.jpg">
+
+  <!-- AUDIO -->
+  <audio id="secretAudio" src="excusemejacob.ogg"></audio>
+  <audio id="loopAudio" src="compooper.mp3" loop></audio>
+  <audio id="finalAudio" src="timeisticking.mp3" loop></audio>
+
+  <script>
+    const text = "Enter Password";
+    let i = 0;
+
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("typewriter").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 80);
+      }
+    }
+
+    function startExperience() {
+      document.getElementById("loadScreen").style.display = "none";
+      document.getElementById("passwordScreen").style.display = "flex";
+
+      const loopAudio = document.getElementById("loopAudio");
+      loopAudio.play().catch(() => {});
+
+      typeWriter();
+    }
+
+    function checkPassword() {
+      const inputBox = document.getElementById("passwordInput");
+      const input = inputBox.value.toLowerCase();
+      const correctPassword = "excuse me pwned";
+
+      const loopAudio = document.getElementById("loopAudio");
+
+      if (input === correctPassword.toLowerCase()) {
+
+        loopAudio.pause();
+        loopAudio.currentTime = 0;
+
+        document.body.style.backgroundColor = "#FFFFFF";
+
+        const typewriter = document.getElementById("typewriter");
+        typewriter.style.color = "#FFFFFF";
+        typewriter.style.animation = "none";
+        typewriter.style.borderRight = "2px solid #FFFFFF";
+
+        const img = document.getElementById("secretImage");
+        img.style.display = "block";
+
+        const audio = document.getElementById("secretAudio");
+        audio.play();
+
+        setTimeout(triggerFinalSequence, 78000);
+
+      } else {
+        inputBox.classList.add("shake");
+        setTimeout(() => {
+          inputBox.classList.remove("shake");
+        }, 400);
+      }
+    }
+
+    function triggerFinalSequence() {
+      const flash = document.getElementById("flashScreen");
+
+      flash.style.display = "block";
+      flash.style.backgroundColor = "#FFFFFF";
+
+      setTimeout(() => {
+        flash.style.backgroundColor = "#000000";
+
+        setTimeout(() => {
+          const finalImg = document.getElementById("finalImage");
+          finalImg.style.display = "block";
+
+          const finalAudio = document.getElementById("finalAudio");
+          finalAudio.play();
+
+        }, 2000);
+
+      }, 200);
+    }
+  </script>
+
+</body>
+</html>
