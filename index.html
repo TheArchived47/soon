@@ -1,10 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My GitHub Website</title>
+  <title>Password Trigger</title>
+  <style>
+    #secretImage {
+      display: none;
+      width: 300px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello world!</h1>
-  <p>This site is hosted on GitHub Pages.</p>
+
+  <h2>Enter Password</h2>
+  <input type="password" id="passwordInput" placeholder="Password">
+  <button onclick="checkPassword()">Submit</button>
+
+  <br><br>
+
+  <img id="secretImage" src="spoiler.png" alt="Secret Image">
+  <audio id="secretAudio" src="excusemejacob.ogg"></audio>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value.toLowerCase();
+      const correctPassword = "excuse me pwned";
+
+      if (input === correctPassword.toLowerCase()) {
+        // Show image
+        document.getElementById("secretImage").style.display = "block";
+
+        // Play audio
+        const audio = document.getElementById("secretAudio");
+        audio.play();
+      } else {
+        alert("Incorrect password");
+      }
+    }
+  </script>
+
 </body>
 </html>
