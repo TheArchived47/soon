@@ -202,8 +202,9 @@
         const typewriter = document.getElementById("typewriter");
         typewriter.style.color = "#FFFFFF";
 
-        /* Change cursor to white too */
+        /* Change cursor to white AND stop blinking */
         typewriter.style.borderRightColor = "#FFFFFF";
+        typewriter.style.animation = "none";
 
         /* Show centered image */
         const img = document.getElementById("secretImage");
