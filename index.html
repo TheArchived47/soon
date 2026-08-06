@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Password Trigger</title>
+  <title>G,U ESS    WH O</title>
 
   <style>
     body {
@@ -11,6 +11,7 @@
       color: #eee;
       text-align: center;
       padding-top: 80px;
+      overflow: hidden; /* Prevent scrollbars when image appears */
     }
 
     /* Typewriter effect */
@@ -23,12 +24,17 @@
       overflow: hidden;
     }
 
-    /* Hidden image */
+    /* Fullscreen hidden image */
     #secretImage {
       display: none;
-      width: 350px;
-      margin-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
       opacity: 0;
+      z-index: 9999;
       animation: glitchFade 1.5s forwards;
     }
 
@@ -82,10 +88,10 @@
   <input type="password" id="passwordInput" placeholder="Password">
   <button onclick="checkPassword()">Submit</button>
 
-  <br><br>
-
-  <!-- Secret content -->
+  <!-- Secret fullscreen image -->
   <img id="secretImage" src="spoiler.png" alt="Secret Image">
+
+  <!-- Audio -->
   <audio id="secretAudio" src="excusemejacob.ogg"></audio>
 
   <script>
@@ -108,7 +114,7 @@
       const correctPassword = "excuse me pwned";
 
       if (input === correctPassword.toLowerCase()) {
-        // Show glitch fade-in image
+        // Show fullscreen glitch fade-in image
         const img = document.getElementById("secretImage");
         img.style.display = "block";
 
