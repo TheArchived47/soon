@@ -7,8 +7,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #000000; /* Fully black */
-      color: #FF0000; /* Red text */
+      background-color: #000000;
+      color: #FF0000;
       text-align: center;
       overflow: hidden;
     }
@@ -55,7 +55,7 @@
     /* Typewriter effect */
     #typewriter {
       font-size: 24px;
-      border-right: 2px solid #FF0000; /* Red cursor */
+      border-right: 2px solid #FF0000;
       width: fit-content;
       margin: 0 auto 20px auto;
       white-space: nowrap;
@@ -68,25 +68,19 @@
       to { border-right-color: transparent; }
     }
 
-    /* Centered image with white background panel */
+    /* First reveal image */
     #secretImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-
       width: 60vw;
-      height: auto;
       max-height: 70vh;
-
-      object-fit: contain;
-
       background: white;
       padding: 20px;
-      border: 3px solid #87CEFA; /* Baby blue border */
+      border: 3px solid #87CEFA;
       box-shadow: 0 0 40px rgba(255,255,255,0.4);
-
       opacity: 0;
       z-index: 9999;
       animation: fadeInImage 1.2s forwards;
@@ -119,7 +113,7 @@
     }
 
     input::placeholder {
-      color: #000000; /* Black placeholder */
+      color: #000000;
     }
 
     button {
@@ -131,6 +125,40 @@
       cursor: pointer;
       background: #FF0000;
       color: #000000;
+    }
+
+    /* FLASH SCREEN */
+    #flashScreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10000;
+    }
+
+    /* Final rotating image */
+    #finalImage {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40vw;
+      opacity: 0;
+      z-index: 10001;
+      animation: fadeInFinal 2s forwards, rotateForever 6s linear infinite;
+    }
+
+    @keyframes fadeInFinal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rotateForever {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
     }
   </style>
 </head>
@@ -149,12 +177,19 @@
     <button onclick="checkPassword()">Submit</button>
   </div>
 
-  <!-- Secret image -->
+  <!-- First reveal image -->
   <img id="secretImage" src="spoiler.png" alt="Secret Image">
+
+  <!-- Flash screen -->
+  <div id="flashScreen"></div>
+
+  <!-- Final rotating image -->
+  <img id="finalImage" src="spookyscaryceedeesnutz.jpg">
 
   <!-- Audio -->
   <audio id="secretAudio" src="excusemejacob.ogg"></audio>
   <audio id="loopAudio" src="compooper.mp3" loop></audio>
+  <audio id="finalAudio" src="timeisticking.mp3" loop></audio>
 
   <script>
     /* TYPEWRITER EFFECT */
@@ -174,7 +209,6 @@
       document.getElementById("loadScreen").style.display = "none";
       document.getElementById("passwordScreen").style.display = "block";
 
-      /* Start looping audio now that user interacted */
       const loopAudio = document.getElementById("loopAudio");
       loopAudio.play().catch(() => {});
 
@@ -191,28 +225,24 @@
 
       if (input === correctPassword.toLowerCase()) {
 
-        /* Stop looping audio */
         loopAudio.pause();
         loopAudio.currentTime = 0;
 
-        /* Switch background to white */
         document.body.style.backgroundColor = "#FFFFFF";
 
-        /* Change typewriter text to white */
         const typewriter = document.getElementById("typewriter");
         typewriter.style.color = "#FFFFFF";
-
-        /* Change cursor to white AND stop blinking */
         typewriter.style.borderRightColor = "#FFFFFF";
         typewriter.style.animation = "none";
 
-        /* Show centered image */
         const img = document.getElementById("secretImage");
         img.style.display = "block";
 
-        /* Play main audio */
         const audio = document.getElementById("secretAudio");
         audio.play();
+
+        /* START 1:18 TIMER */
+        setTimeout(triggerFinalSequence, 78000);
 
       } else {
         inputBox.classList.add("shake");
@@ -220,6 +250,32 @@
           inputBox.classList.remove("shake");
         }, 400);
       }
+    }
+
+    /* FINAL SEQUENCE */
+    function triggerFinalSequence() {
+      const flash = document.getElementById("flashScreen");
+
+      /* Flash white */
+      flash.style.display = "block";
+      flash.style.backgroundColor = "#FFFFFF";
+
+      setTimeout(() => {
+        /* Flash black */
+        flash.style.backgroundColor = "#000000";
+
+        setTimeout(() => {
+          /* Show rotating image */
+          const finalImg = document.getElementById("finalImage");
+          finalImg.style.display = "block";
+
+          /* Play looping audio */
+          const finalAudio = document.getElementById("finalAudio");
+          finalAudio.play();
+
+        }, 2000);
+
+      }, 200);
     }
   </script>
 
