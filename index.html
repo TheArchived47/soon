@@ -5,7 +5,36 @@
   <title>G,U ESS    WH O</title>
 
   <style>
+    /* GLOBAL CRT FILTER */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 20000;
+
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 2px,
+        rgba(0,0,0,0.05) 2px,
+        rgba(0,0,0,0.05) 4px
+      );
+
+      animation: crtFlicker 0.08s infinite;
+    }
+
+    @keyframes crtFlicker {
+      0% { opacity: 0.95; }
+      50% { opacity: 1; }
+      100% { opacity: 0.93; }
+    }
+
     body {
+      filter: contrast(1.15) brightness(1.05);
       font-family: Arial, sans-serif;
       background-color: #000000;
       color: #FF0000;
@@ -40,7 +69,6 @@
       gap: 12px;
     }
 
-    /* CD icon */
     #loadButton::before {
       content: "💿";
       font-size: 26px;
@@ -52,7 +80,6 @@
       padding-top: 80px;
     }
 
-    /* Typewriter effect */
     #typewriter {
       font-size: 24px;
       border-right: 2px solid #FF0000;
@@ -138,14 +165,14 @@
       z-index: 10000;
     }
 
-    /* Final rotating image */
+    /* FINAL ROTATING IMAGE — NOW SMALLER */
     #finalImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 40vw;
+      width: 20vw; /* MUCH SMALLER NOW */
       opacity: 0;
       z-index: 10001;
       animation: fadeInFinal 2s forwards, rotateForever 6s linear infinite;
@@ -192,7 +219,6 @@
   <audio id="finalAudio" src="timeisticking.mp3" loop></audio>
 
   <script>
-    /* TYPEWRITER EFFECT */
     const text = "Enter Password";
     let i = 0;
 
@@ -204,7 +230,6 @@
       }
     }
 
-    /* START EXPERIENCE */
     function startExperience() {
       document.getElementById("loadScreen").style.display = "none";
       document.getElementById("passwordScreen").style.display = "block";
@@ -215,7 +240,6 @@
       typeWriter();
     }
 
-    /* PASSWORD CHECK */
     function checkPassword() {
       const inputBox = document.getElementById("passwordInput");
       const input = inputBox.value.toLowerCase();
@@ -241,7 +265,6 @@
         const audio = document.getElementById("secretAudio");
         audio.play();
 
-        /* START 1:18 TIMER */
         setTimeout(triggerFinalSequence, 78000);
 
       } else {
@@ -252,24 +275,19 @@
       }
     }
 
-    /* FINAL SEQUENCE */
     function triggerFinalSequence() {
       const flash = document.getElementById("flashScreen");
 
-      /* Flash white */
       flash.style.display = "block";
       flash.style.backgroundColor = "#FFFFFF";
 
       setTimeout(() => {
-        /* Flash black */
         flash.style.backgroundColor = "#000000";
 
         setTimeout(() => {
-          /* Show rotating image */
           const finalImg = document.getElementById("finalImage");
           finalImg.style.display = "block";
 
-          /* Play looping audio */
           const finalAudio = document.getElementById("finalAudio");
           finalAudio.play();
 
