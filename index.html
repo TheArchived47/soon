@@ -95,13 +95,13 @@
       to { border-right-color: transparent; }
     }
 
-    /* First reveal image */
+    /* First reveal image — NOW PERFECTLY CENTERED */
     #secretImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -47%); /* PERFECT CENTERING */
       width: 60vw;
       max-height: 70vh;
       background: white;
@@ -172,7 +172,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 15vw; /* SMALLER SIZE */
+      width: 15vw;
       opacity: 0;
       z-index: 10001;
       animation: fadeInFinal 2s forwards, rotateForever 6s linear infinite;
@@ -257,7 +257,7 @@
         const typewriter = document.getElementById("typewriter");
         typewriter.style.color = "#FFFFFF";
         typewriter.style.animation = "none";
-        typewriter.style.borderRight = "2px solid #FFFFFF"; /* FIXED CURSOR COLOR */
+        typewriter.style.borderRight = "2px solid #FFFFFF";
 
         const img = document.getElementById("secretImage");
         img.style.display = "block";
