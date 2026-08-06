@@ -5,13 +5,6 @@
   <title>G,U ESS    WH O</title>
 
   <style>
-    /* CRT WARP FILTER (BARREL DISTORTION) */
-    svg {
-      position: absolute;
-      width: 0;
-      height: 0;
-    }
-
     /* GLOBAL CRT FILTER */
     body::before {
       content: "";
@@ -40,21 +33,6 @@
       100% { opacity: 0.93; }
     }
 
-    /* CRT SCREEN WARP */
-    body {
-      filter: url('#crtWarp');
-      animation: crtBend 4s ease-in-out infinite;
-      transform-origin: center;
-    }
-
-    @keyframes crtBend {
-      0%   { transform: scale(1.000) }
-      50%  { transform: scale(1.003, 1.0015) }
-      100% { transform: scale(1.000) }
-    }
-
-    /* REST OF YOUR ORIGINAL CODE (UNCHANGED) */
-
     body {
       filter: contrast(1.15) brightness(1.05);
       font-family: Arial, sans-serif;
@@ -66,6 +44,7 @@
       padding: 0;
     }
 
+    /* UNIVERSAL CENTERING CONTAINER */
     .centerScreen {
       position: fixed;
       top: 0;
@@ -79,6 +58,7 @@
       z-index: 30000;
     }
 
+    /* LOAD DATA SCREEN */
     #loadScreen {
       background: #000000;
     }
@@ -101,6 +81,7 @@
       font-size: 26px;
     }
 
+    /* PASSWORD SCREEN */
     #passwordScreen {
       display: none;
     }
@@ -144,6 +125,7 @@
       color: #000000;
     }
 
+    /* WRONG PASSWORD SHAKE */
     @keyframes shake {
       0% { transform: translateX(0); }
       20% { transform: translateX(-10px); }
@@ -154,6 +136,7 @@
     }
     .shake { animation: shake 0.4s; }
 
+    /* SPOILER IMAGE */
     #secretImage {
       width: 60vw;
       max-height: 70vh;
@@ -170,6 +153,7 @@
       100% { opacity: 1; }
     }
 
+    /* FLASH SCREEN */
     #flashScreen {
       display: none;
       position: fixed;
@@ -180,6 +164,7 @@
       z-index: 30000;
     }
 
+    /* FINAL ROTATING IMAGE */
     #finalImage {
       width: 15vw;
       opacity: 0;
@@ -199,19 +184,6 @@
 </head>
 <body>
 
-  <!-- CRT WARP SVG FILTER -->
-  <svg>
-    <filter id="crtWarp">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blur"/>
-      <feColorMatrix in="blur" type="matrix"
-        values="1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                0 0 0 1 0" result="colored"/>
-      <feDisplacementMap in="colored" in2="colored" scale="6" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
-
   <!-- LOAD DATA SCREEN -->
   <div id="loadScreen" class="centerScreen">
     <button id="loadButton" onclick="startExperience()">LOAD DATA</button>
@@ -225,7 +197,7 @@
     <button onclick="checkPassword()">Submit</button>
   </div>
 
-  <!-- SPOILER IMAGE -->
+  <!-- SPOILER IMAGE (NOW CENTERED) -->
   <div id="secretImageContainer" class="centerScreen" style="display:none;">
     <img id="secretImage" src="spoiler.png" alt="Secret Image">
   </div>
@@ -233,7 +205,7 @@
   <!-- FLASH SCREEN -->
   <div id="flashScreen"></div>
 
-  <!-- FINAL ROTATING IMAGE -->
+  <!-- FINAL ROTATING IMAGE (NOW CENTERED) -->
   <div id="finalImageContainer" class="centerScreen" style="display:none;">
     <img id="finalImage" src="spookyscaryceedeesnutz.jpg">
   </div>
