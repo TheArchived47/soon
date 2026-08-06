@@ -13,7 +13,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: none; /* IMPORTANT: allows clicking through */
+      pointer-events: none;
       z-index: 20000;
 
       background: repeating-linear-gradient(
@@ -55,12 +55,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      z-index: 30000;
     }
 
     /* LOAD DATA SCREEN */
     #loadScreen {
       background: #000000;
-      z-index: 30000; /* ABOVE CRT FILTER */
     }
 
     #loadButton {
@@ -84,7 +84,6 @@
     /* PASSWORD SCREEN */
     #passwordScreen {
       display: none;
-      z-index: 30000;
     }
 
     #typewriter {
@@ -137,13 +136,13 @@
     }
     .shake { animation: shake 0.4s; }
 
-    /* SPOILER IMAGE — CENTERED */
+    /* SPOILER IMAGE — FIXED CENTER */
     #secretImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); /* PERFECT CENTER */
       width: 60vw;
       max-height: 70vh;
       background: white;
@@ -171,13 +170,13 @@
       z-index: 30000;
     }
 
-    /* FINAL ROTATING IMAGE — CENTERED */
+    /* FINAL ROTATING IMAGE — FIXED CENTER */
     #finalImage {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); /* PERFECT CENTER */
       width: 15vw;
       opacity: 0;
       z-index: 30001;
