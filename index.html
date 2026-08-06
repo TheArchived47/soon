@@ -7,8 +7,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #eee;
+      background-color: #000000; /* Fully black */
+      color: #FF0000; /* Red text */
       text-align: center;
       padding-top: 80px;
       overflow: hidden;
@@ -17,11 +17,18 @@
     /* Typewriter effect */
     #typewriter {
       font-size: 24px;
-      border-right: 2px solid #eee;
+      border-right: 2px solid #FF0000; /* Red cursor */
       width: fit-content;
       margin: 0 auto 20px auto;
       white-space: nowrap;
       overflow: hidden;
+      animation: blinkCursor 0.7s step-end infinite alternate;
+    }
+
+    /* Cursor blink */
+    @keyframes blinkCursor {
+      from { border-right-color: #FF0000; }
+      to { border-right-color: transparent; }
     }
 
     /* Centered image with white background panel */
@@ -30,16 +37,16 @@
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);  /* Perfect centering */
+      transform: translate(-50%, -50%);
 
-      width: 70vw;          /* Slightly smaller */
+      width: 60vw;          /* Slightly smaller */
       height: auto;
-      max-height: 80vh;
+      max-height: 70vh;
 
       object-fit: contain;
 
-      background: white;    /* White background behind PNG */
-      padding: 20px;        /* Spacing around image */
+      background: white;
+      padding: 20px;
       box-shadow: 0 0 40px rgba(255,255,255,0.4);
 
       opacity: 0;
@@ -100,6 +107,8 @@
       border-radius: 6px;
       border: none;
       outline: none;
+      background: #FF0000; /* Red bar */
+      color: #000000; /* Black text */
     }
 
     button {
@@ -109,6 +118,8 @@
       border-radius: 6px;
       border: none;
       cursor: pointer;
+      background: #FF0000; /* Red button */
+      color: #000000; /* Black text */
     }
   </style>
 </head>
@@ -126,6 +137,7 @@
 
   <!-- Audio -->
   <audio id="secretAudio" src="excusemejacob.ogg"></audio>
+  <audio id="loopAudio" src="compooper.mp3" loop></audio>
 
   <!-- Shutdown overlay -->
   <div id="shutdownOverlay"></div>
@@ -143,6 +155,11 @@
     }
     typeWriter();
 
+    /* Start looping audio immediately */
+    const loopAudio = document.getElementById("loopAudio");
+    loopAudio.volume = 1.0;
+    loopAudio.play();
+
     /* PASSWORD CHECK */
     function checkPassword() {
       const inputBox = document.getElementById("passwordInput");
@@ -150,9 +167,19 @@
       const correctPassword = "excuse me pwned";
 
       if (input === correctPassword.toLowerCase()) {
+
+        /* Stop looping audio */
+        loopAudio.pause();
+        loopAudio.currentTime = 0;
+
+        /* Switch background to white */
+        document.body.style.backgroundColor = "#FFFFFF";
+
+        /* Show centered image */
         const img = document.getElementById("secretImage");
         img.style.display = "block";
 
+        /* Play main audio */
         const audio = document.getElementById("secretAudio");
         audio.play();
 
